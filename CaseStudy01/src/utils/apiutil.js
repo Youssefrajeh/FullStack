@@ -1,4 +1,5 @@
-const baseURL = "https://localhost:7017/api/";
+const isProd = !["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+const baseURL = isProd ? "/api/" : "https://localhost:7017/api/";
 
 export const fetcher = async (endpoint) => {
   let payload;
