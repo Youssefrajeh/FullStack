@@ -92,4 +92,11 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 
+// Auto-create database tables if they don't exist
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
+
 app.Run();
