@@ -1,0 +1,8 @@
+-81.30498,43.01645,1225 Wonderland Rd N,London,ON
+-81.23284,42.97547,395 Wellington Rd,London,ON
+-81.20141,43.00647,1275 Highbury Ave,London,ON
+-81.21901,43.00937,1820 Oxford St E,London,ON
+-81.30498,42.94547,1051 Wonderland Rd S,London,ON
+-81.31773,42.91547,3040 Wonderland Rd S,London,ON
+-81.31773,43.02247,1925 Hyde Park Rd,London,ON
+-81.30498,43.03547,1280 Fanshawe Park Rd W,London,ON
