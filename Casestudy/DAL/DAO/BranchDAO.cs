@@ -1,5 +1,4 @@
 using Casestudy.DAL.DomainClasses;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Casestudy.DAL.DAO
@@ -76,10 +75,27 @@ namespace Casestudy.DAL.DAO
             List<Branch>? branchDetails = null;
             try
             {
-                var latParam = new SqlParameter("@lat", lat);
-                var lonParam = new SqlParameter("@lon", lon);
-                var query = _db.Branches?.FromSqlRaw("dbo.pGetThreeClosestBranches @lat, @lon", latParam, lonParam);
-                branchDetails = await query!.ToListAsync();
+                if (lat == null || lon == null) return null;
+
+                // Get all branches and calculate distance in memory
+                var allBranches = await _db.Branches!.ToListAsync();
+                branchDetails = allBranches
+                    .Select(b =>
+                    {
+                        // Haversine formula to calculate distance in km
+                        double R = 6371; // Earth's radius in km
+                        double dLat = (b.Latitude!.Value - lat.Value) * Math.PI / 180;
+                        double dLon = (b.Longitude!.Value - lon.Value) * Math.PI / 180;
+                        double a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+                                   Math.Cos(lat.Value * Math.PI / 180) * Math.Cos(b.Latitude.Value * Math.PI / 180) *
+                                   Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
+                        double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+                        b.Distance = R * c;
+                        return b;
+                    })
+                    .OrderBy(b => b.Distance)
+                    .Take(3)
+                    .ToList();
             }
             catch (Exception ex)
             {
