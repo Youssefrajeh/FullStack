@@ -2,9 +2,8 @@
 FROM node:20 AS frontend-build
 WORKDIR /app/frontend
 # Copy frontend source
-COPY CaseStudy01/package*.json ./
-RUN npm install
 COPY CaseStudy01/ ./
+RUN npm install
 # Build Quasar app (produces output in dist/spa)
 RUN npx quasar build
 
