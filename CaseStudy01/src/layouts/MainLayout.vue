@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>Info3181 Case Study</q-toolbar-title>
+        <q-toolbar-title>Info3181 Case Study- Youssef Rajeh</q-toolbar-title>
 
         <q-btn flat round dense icon="reorder" class="q-mr-xs">
           <q-menu>
