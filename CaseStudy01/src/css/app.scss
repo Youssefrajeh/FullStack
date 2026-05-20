@@ -1,0 +1,51 @@
+// app global css in SCSS form
+
+// Fix mobile inspection issues
+* {
+  box-sizing: border-box;
+}
+
+// Prevent layout issues when switching device modes
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+// Mobile-specific fixes for developer tools
+@media screen and (max-width: 1024px) {
+  // Ensure touch targets are large enough
+  .q-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  // Fix menu interactions on mobile
+  .q-menu {
+    max-width: 90vw;
+  }
+  
+  // Prevent horizontal scroll issues
+  .q-page {
+    overflow-x: hidden;
+  }
+}
+
+// Fix for device mode switching in developer tools
+@media (hover: none) and (pointer: coarse) {
+  // This targets actual touch devices
+  .q-btn:hover {
+    background-color: inherit !important;
+  }
+}
+
+// Debug mode fixes
+.debug-mode {
+  outline: 1px solid red;
+}
+
+// Prevent inspector mode conflicts
+.q-layout {
+  min-height: 100vh;
+  position: relative;
+}
