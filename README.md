@@ -1,73 +1,146 @@
-# Fullstack Web Application 🚀
+# 🛒 INFO3181 – Fullstack E-Commerce Case Study
 
-Welcome to the Fullstack Web Application project! This is a complete, modern web application designed to demonstrate how a backend API and a frontend User Interface work together to create a seamless experience. 
-
-This project is built using industry-standard tools and is perfect for students learning about full-stack development, database management, and cloud deployment.
-
-## 🛠️ Tech Stack
-
-### Frontend (User Interface)
-* **Vue.js 3:** A progressive JavaScript framework for building user interfaces.
-* **Quasar Framework:** A powerful Vue UI framework that provides beautiful, ready-to-use material design components.
-* **Location:** The frontend code is located in the `CaseStudy01` folder.
-
-### Backend (Server & API)
-* **ASP.NET Core 8 (C#):** A robust, high-performance backend framework by Microsoft used to build our RESTful APIs.
-* **Entity Framework Core:** An Object-Relational Mapper (ORM) that lets us interact with the database using C# instead of raw SQL.
-* **Location:** The backend code is located in the `Casestudy` folder.
-
-### Database
-* **Development:** Microsoft SQL Server (LocalDB) - great for offline, local development.
-* **Production:** PostgreSQL (Neon.tech) - a powerful, open-source cloud database used when the app is deployed to the internet.
+**Student:** Youssef Rajeh (1196323)  
+**Course:** INFO3181 – Full Stack Web Development  
+**Live Demo:** [https://fullstack-lofy.onrender.com](https://fullstack-lofy.onrender.com)
 
 ---
 
-## 🏃‍♂️ How to Run the Project Locally
+## 📖 About This Project
 
-To run this project on your own computer, you will need to run the backend and the frontend separately.
+This is a fullstack web application that simulates an e-commerce store. Users can browse products by brand, add items to a shopping cart, place orders, view order history, and locate the nearest store branches on a map.
+
+The project demonstrates how a **frontend** (what the user sees) communicates with a **backend** (the server) through **RESTful API** calls, and how data is stored and retrieved from a **relational database**.
+
+---
+
+## 🛠️ Technologies Used
+
+| Layer       | Technology                        | Purpose                                      |
+|-------------|-----------------------------------|----------------------------------------------|
+| Frontend    | Vue.js 3 + Quasar Framework       | User interface and page routing               |
+| Backend     | ASP.NET Core 8 (C#)              | RESTful API endpoints and business logic      |
+| Database    | PostgreSQL (Neon)                 | Storing products, customers, orders, branches |
+| ORM         | Entity Framework Core             | Mapping C# objects to database tables         |
+| Auth        | JWT (JSON Web Tokens)            | Secure login and protected routes             |
+| Maps        | TomTom Maps SDK                  | Branch locator with geocoding                 |
+| Deployment  | Docker + Render                  | Containerized cloud hosting                   |
+
+---
+
+## 📁 Project Structure
+
+```
+Fullstack/
+├── CaseStudy01/                  ← Frontend (Vue.js / Quasar)
+│   ├── src/
+│   │   ├── pages/                ← All the app pages (Home, Login, Cart, etc.)
+│   │   ├── layouts/              ← MainLayout.vue (navbar + footer)
+│   │   ├── router/               ← Page routing configuration
+│   │   └── utils/                ← API helper functions (fetcher, poster)
+│   └── package.json
+│
+├── Casestudy/                    ← Backend (ASP.NET Core)
+│   ├── Controllers/              ← API endpoints
+│   │   ├── BrandController.cs    ← GET /api/Brand
+│   │   ├── ProductController.cs  ← GET /api/Product
+│   │   ├── OrderController.cs    ← POST /api/Order
+│   │   ├── LoginController.cs    ← POST /api/Login
+│   │   ├── RegisterController.cs ← POST /api/Register
+│   │   ├── BranchController.cs   ← GET /api/Branch/{lat}/{lon}
+│   │   └── DataController.cs     ← GET /api/Data (load seed data)
+│   ├── DAL/
+│   │   ├── AppDbContext.cs       ← Database context (EF Core)
+│   │   ├── DomainClasses/        ← Models (Brand, Product, Customer, Order, etc.)
+│   │   ├── DAO/                  ← Data Access Objects (database queries)
+│   │   └── DataUtility.cs        ← Seed data loader
+│   └── Program.cs                ← App startup and configuration
+│
+├── Dockerfile                    ← Multi-stage Docker build
+└── README.md
+```
+
+---
+
+## 🔑 Key Features
+
+- **User Registration & Login** – Passwords are hashed with salt. JWT tokens are used for authentication.
+- **Browse Products** – View products filtered by brand with images and pricing.
+- **Shopping Cart** – Add/remove items and place orders with stock validation.
+- **Order History** – View past orders with itemized details.
+- **Branch Locator** – Enter an address to find the 3 closest store branches on a TomTom map using the Haversine distance formula.
+- **Data Utility** – Admin page to load product and branch seed data into the database.
+
+---
+
+## 🏃‍♂️ How to Run Locally
+
+### Prerequisites
+- [.NET 8 SDK](https://dotnet.microsoft.com/download)
+- [Node.js 20+](https://nodejs.org/)
+- SQL Server LocalDB (comes with Visual Studio)
 
 ### 1. Start the Backend
-The backend serves the data and handles security (like logging in).
-1. Open a terminal.
-2. Navigate to the backend folder:
-   ```bash
-   cd Casestudy
-   ```
-3. Run the application:
-   ```bash
-   dotnet run
-   ```
-   *The backend will usually start on `https://localhost:7196` or a similar port.*
+```bash
+cd Casestudy
+dotnet run
+```
+The API will start on `https://localhost:7017`
 
 ### 2. Start the Frontend
-The frontend is the visual website that users interact with.
-1. Open a **new** terminal window.
-2. Navigate to the frontend folder:
-   ```bash
-   cd CaseStudy01
-   ```
-3. Install the required Node.js packages (you only need to do this once):
-   ```bash
-   npm install
-   ```
-4. Start the development server:
-   ```bash
-   npx quasar dev
-   ```
-   *The website will automatically open in your browser, usually at `http://localhost:9000`.*
+```bash
+cd CaseStudy01
+npm install
+npx quasar dev
+```
+The app will open at `http://localhost:9000`
+
+### 3. Load Seed Data
+1. Navigate to **Data Utils** in the app menu
+2. Click **Load Branches** to populate branch locations
+3. Go back and click the main load button to populate brands and products
 
 ---
 
-## ☁️ How it is Deployed (Production)
+## ☁️ Deployment
 
-When this app is ready for the real world, we deploy it to **Render** using a **Docker Container**. 
+This project is deployed to **Render** using Docker.
 
-* **Docker (`Dockerfile`):** Think of Docker as a shipping container. The `Dockerfile` in the root of this project contains instructions to build the frontend, build the backend, and package them together into a single, runnable "image".
-* **Environment Variables:** When deployed, the backend automatically detects a `DATABASE_URL` environment variable. If it finds one, it connects to our cloud PostgreSQL database instead of the local SQL Server!
-* **Unified Serving:** In production, the ASP.NET Core backend is configured to serve the compiled frontend files directly, so we only need to host one web service.
+The `Dockerfile` uses a **multi-stage build**:
+1. **Stage 1** – Builds the Quasar frontend into static files
+2. **Stage 2** – Builds the .NET backend into a published release
+3. **Stage 3** – Combines both into a lightweight runtime image
 
-## 📁 Project Structure Highlights
-* `Casestudy/Controllers/` - Contains the API endpoints (e.g., `/api/product`) that the frontend talks to.
-* `Casestudy/DAL/` - Data Access Layer. Contains the Domain Classes (Models) and DAOs (Database methods).
-* `CaseStudy01/src/pages/` - The different screens/pages of the website (Home, Cart, Login).
-* `CaseStudy01/src/utils/apiutils.js` - Helper file the frontend uses to automatically detect whether it should send API requests to `localhost` (in development) or `/api/` (in production).
+In production, the backend serves the frontend files directly from the `wwwroot` folder, so only **one web service** is needed.
+
+### Environment Variables on Render
+| Variable       | Description                          |
+|----------------|--------------------------------------|
+| `DATABASE_URL` | PostgreSQL connection string (Neon)  |
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint                     | Auth Required | Description                    |
+|--------|------------------------------|---------------|--------------------------------|
+| GET    | `/api/Brand`                 | Yes           | Get all brands                 |
+| GET    | `/api/Product/{brandId}`     | Yes           | Get products by brand          |
+| POST   | `/api/Register`              | No            | Register a new customer        |
+| POST   | `/api/Login`                 | No            | Login and receive JWT token    |
+| POST   | `/api/Order/{customerId}`    | Yes           | Place a new order              |
+| GET    | `/api/Order/{email}`         | Yes           | Get order history              |
+| GET    | `/api/Branch/{lat}/{lon}`    | No            | Get 3 closest branches         |
+| GET    | `/api/Data`                  | No            | Load product seed data         |
+| GET    | `/api/Data/loadbranches`     | No            | Load branch seed data          |
+
+---
+
+## 📚 What I Learned
+
+- How to build and connect a **frontend** and **backend** using REST APIs
+- How to use **Entity Framework Core** as an ORM to interact with a database
+- How to implement **JWT authentication** for secure API access
+- How to use **Docker** to containerize and deploy a fullstack application
+- How to integrate **third-party APIs** (TomTom Maps) for geolocation features
+- How to manage **environment-specific configuration** (dev vs production)
