@@ -25,7 +25,7 @@ namespace Casestudy.DAL.DAO
                 }
 
                 var csv = new List<string[]>();
-                var csvFile = path + "\\branchLocations.txt";
+                var csvFile = Path.Combine(path, "branchLocations.txt");
                 Console.WriteLine($"Loading branches from file: {csvFile}");
 
                 if (!System.IO.File.Exists(csvFile))

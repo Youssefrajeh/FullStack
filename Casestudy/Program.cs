@@ -73,11 +73,12 @@ app.Use(async (context, next) =>
 {
     context.Response.Headers["Content-Security-Policy"] =
         "default-src 'self'; " +
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.tomtom.com; " +
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://api.tomtom.com blob:; " +
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.tomtom.com; " +
         "font-src 'self' https://fonts.gstatic.com data:; " +
         "img-src 'self' data: https:; " +
-        "connect-src 'self' https:; " +
+        "connect-src 'self' https: blob:; " +
+        "worker-src 'self' blob:; " +
         "frame-src 'self';";
 
     await next();
